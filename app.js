@@ -65,8 +65,18 @@ const sendMessage = async (channel, message, gifQuery) => {
   }
 }
 
-const deleteMessage = async (channel, timestamp) => {
+const deleteMessage = async (channel, url) => {
   try {
+    const match = url.match(/\/p(\d+)$/)
+
+    if (!match) throw new Error('Could not extract timestamp from link')
+
+    const digits = match[1]
+
+    const firstPart = digits.slice(0, 6)
+    const secondPart = digits.slice(6)
+    const timestamp = `${firstPart}.${secondPart}`
+
     await web.chat.delete({
       channel: channel,
       ts: timestamp,
@@ -114,7 +124,8 @@ schedule.scheduleJob('48 2 * * 1-5', () => {
 })
 
 // sendMessage(channelC, 'logger test')
-// deleteMessage(channelC, '1711301777.796629')
+// deleteMessage(channelC, 'https://prompttown.slack.com/archives/C06CKMYT98A/p1711302352901479')
+//https://prompttown.slack.com/archives/C06CKMYT98A/p1711302327872699
 // logger.info('Bot is running!')
 
 // setInterval(() => {
