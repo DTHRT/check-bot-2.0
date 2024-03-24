@@ -13,6 +13,7 @@
     "dotenv": "^16.3.1",
     "node-schedule": "^2.1.1",
     "prettier": "^3.2.5",
-    "slack-node": "^0.1.8"
+    "slack-node": "^0.1.8",
+    "winston": "^3.12.0"
   }
 }
