@@ -1,5 +1,6 @@
 const { WebClient } = require('@slack/web-api')
 const schedule = require('node-schedule')
+const winston = require('winston')
 require('dotenv').config()
 
 const token = process.env.SLACK_TOKEN || 'No token defined'
@@ -10,15 +11,27 @@ const messageCO = process.env.SLACK_MESSAGECO || 'No message defined'
 const tenorKey = process.env.TENOR_API || 'No key defined'
 
 const web = new WebClient(token)
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [new winston.transports.File({ filename: 'sent-messages.log' })],
+})
+
 const sendMessage = async (channel, message, gifQuery) => {
   try {
     if (!message) throw new Error('No message defined')
 
     if (!gifQuery) {
-      return await web.chat.postMessage({
+      await web.chat.postMessage({
         channel: channel,
         text: message,
       })
+      logger.info(message)
+      return
     }
 
     const { gif, title } = await getGif(gifQuery)
@@ -45,8 +58,10 @@ const sendMessage = async (channel, message, gifQuery) => {
         },
       ],
     })
+
+    logger.info(message)
   } catch (error) {
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -94,7 +109,6 @@ schedule.scheduleJob('0 19 * * 1-5', () => {
   sendMessage(channelC, messageCO, 'go to home')
 })
 
-// sendMessage(channelC, messageCI, 'go to work')
-// deleteMessage(channelC, '1711271795.020139');
-
+// sendMessage(channelC, 'logger test')
+// deleteMessage(channelC, '1711272759.226699')
 console.log('Bot is running!')
