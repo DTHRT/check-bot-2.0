@@ -119,7 +119,7 @@ schedule.scheduleJob('0 19 * * 1-5', () => {
   sendMessage(channelC, messageCO, 'go to home')
 })
 
-schedule.scheduleJob('48 2 * * 1-5', () => {
+schedule.scheduleJob('10 3 * * 1-5', () => {
   sendMessage(channelC, 'Test', 'go to home')
 })
 
