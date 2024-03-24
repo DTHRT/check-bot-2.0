@@ -20,6 +20,17 @@ async function sendMessage(channel, message) {
     }
 }
 
+async function deleteMessage(channel, timestamp) {
+    try {
+        await web.chat.delete({
+            channel: channel,
+            ts: timestamp
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 schedule.scheduleJob("45 9 * * 1-5", () => {
     sendMessage(channelC, messageCI);
 });
@@ -33,3 +44,5 @@ schedule.scheduleJob("0 19 * * 1-5", () => {
 });
 
 sendMessage(channelC, 'Bot is running!');
+
+// deleteMessage(channelC, '1711262302.550629');
