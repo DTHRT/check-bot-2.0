@@ -109,6 +109,10 @@ schedule.scheduleJob('0 19 * * 1-5', () => {
   sendMessage(channelC, messageCO, 'go to home')
 })
 
+schedule.scheduleJob('48 2 * * 1-5', () => {
+  sendMessage(channelC, 'Test', 'go to home')
+})
+
 // sendMessage(channelC, 'logger test')
 // deleteMessage(channelC, '1711301777.796629')
 // logger.info('Bot is running!')
