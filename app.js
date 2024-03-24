@@ -1,6 +1,7 @@
 const { WebClient } = require('@slack/web-api')
 const schedule = require('node-schedule')
 const winston = require('winston')
+const fetch = require('node-fetch')
 require('dotenv').config()
 
 const token = process.env.SLACK_TOKEN || 'No token defined'
