@@ -9,7 +9,7 @@ const messageBREAK = process.env.SLACK_MESSAGEBREAK || "No message defined";
 const messageCO = process.env.SLACK_MESSAGECO || "No message defined";
 
 const web = new WebClient(token);
-async function sendMessage(channel, message) {
+const sendMessage = async (channel, message) => {
     try {
         await web.chat.postMessage({
             channel: channel,
@@ -20,7 +20,7 @@ async function sendMessage(channel, message) {
     }
 }
 
-async function deleteMessage(channel, timestamp) {
+const deleteMessage = async (channel, timestamp) => {
     try {
         await web.chat.delete({
             channel: channel,
