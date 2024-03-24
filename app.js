@@ -110,9 +110,9 @@ schedule.scheduleJob('0 19 * * 1-5', () => {
 })
 
 // sendMessage(channelC, 'logger test')
-// deleteMessage(channelC, '1711301444.272439')
+// deleteMessage(channelC, '1711301777.796629')
 // logger.info('Bot is running!')
 
-setInterval(() => {
-  sendMessage(channelC, 'test')
-}, 5000)
+// setInterval(() => {
+//   sendMessage(channelC, 'test')
+// }, 5000)
