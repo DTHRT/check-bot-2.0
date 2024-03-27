@@ -119,12 +119,12 @@ schedule.scheduleJob('0 19 * * 1-5', () => {
   sendMessage(channelC, messageCO, 'go to home')
 })
 
-schedule.scheduleJob('0 9 * * 1-5', () => {
-  sendMessage(channelC, 'Test')
-})
+// schedule.scheduleJob('0 9 * * 1-5', () => {
+//   sendMessage(channelC, 'Test')
+// })
 
 // sendMessage(channelC, 'logger test')
-// deleteMessage(channelC, 'https://prompttown.slack.com/archives/C06CKMYT98A/p1711302352901479')
+// deleteMessage(channelC, 'https://prompttown.slack.com/archives/C06CKMYT98A/p1711411200517359')
 //https://prompttown.slack.com/archives/C06CKMYT98A/p1711302327872699
 // logger.info('Bot is running!')
 
