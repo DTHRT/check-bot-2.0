@@ -8,6 +8,7 @@ A 🔥 simple and efficient bot to automate daily check-ins and check-outs on Sl
 - 📅 Customizable messages for each day of the week
 - 🤖 Easy to set up bot user on Slack
 - 🚀 Quick installation and start-up
+- 🖼️ GIF support (Google Tenor API)
 
 ## Getting Started
 
