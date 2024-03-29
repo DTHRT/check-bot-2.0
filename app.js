@@ -65,6 +65,51 @@ const sendMessage = async (channel, message, gifQuery) => {
   }
 }
 
+const sendMessageStaticGif = async (channel, message, gifObject) => {
+  try {
+    if (!message) throw new Error('No message defined')
+
+    if (!gifObject) {
+      await web.chat.postMessage({
+        channel: channel,
+        text: message,
+      })
+      logger.info(message)
+      return
+    }
+
+    const { gif, title } = gifObject
+
+    await web.chat.postMessage({
+      channel,
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: message,
+          },
+        },
+        {
+          type: 'image',
+          title: {
+            type: 'plain_text',
+            text: title || 'No title :(',
+            emoji: true,
+          },
+          image_url: gif,
+          alt_text: title,
+        },
+      ],
+    })
+
+    logger.info(message)
+  } catch (error) {
+    logger.error(error)
+  }
+}
+
+
 const deleteMessage = async (channel, url) => {
   try {
     const match = url.match(/\/p(\d+)$/)
@@ -102,26 +147,33 @@ const getGif = async (query = '') => {
       gif: results[0].media_formats.gif.url,
       title: results[0].content_description,
     }
-  } catch {
+  } catch (error) {
     console.error(error)
   }
 }
 
 schedule.scheduleJob('45 9 * * 1-5', () => {
-  sendMessage(channelC, messageCI, 'go to work')
+  sendMessageStaticGif(channelC, messageCI, {
+        gif: 'https://media.tenor.com/8ieWbN2zkhcAAAAC/lets-get-to-work-penguin.gif',
+        title: 'Lets Get To Work Penguin GIF'
+      }
+  )
 })
 
 schedule.scheduleJob('30 12 * * 1-5', () => {
-  sendMessage(channelC, messageBREAK, 'lunch time')
+  sendMessageStaticGif(channelC, messageBREAK, {
+        gif: 'https://media.tenor.com/dOfiKamdXxsAAAAC/shaptic-monk.gif',
+        title: 'Lunch Time GIF'
+      }
+  )
 })
 
 schedule.scheduleJob('0 19 * * 1-5', () => {
-  sendMessage(channelC, messageCO, 'go to home')
+  sendMessageStaticGif(channelC, messageCO, {
+    gif: 'https://media.tenor.com/8ieWbN2zkhcAAAAC/lets-get-to-work-penguin.gif',
+    title: 'Lets Get To Home Penguin GIF'
+  })
 })
-
-// schedule.scheduleJob('0 9 * * 1-5', () => {
-//   sendMessage(channelC, 'Test')
-// })
 
 // sendMessage(channelC, 'logger test')
 // deleteMessage(channelC, 'https://prompttown.slack.com/archives/C06CKMYT98A/p1711411200517359')
